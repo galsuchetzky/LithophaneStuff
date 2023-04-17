@@ -11,7 +11,7 @@ def read_image(image_path):
 
     # Display image.
     plt.imshow(im)
-    # plt.show()
+    plt.show()
 
     return im
 
@@ -22,7 +22,7 @@ def image2grayscale(im):
     # Display grayscale image.
     plt.imshow(gray, cmap='gray')
     plt.colorbar()
-    # plt.show()
+    plt.show()
 
     return gray
 
@@ -57,7 +57,7 @@ def calcXYZ(gray, h, d):
     plt.ylabel('Lithophane Depth (z direction mm)')
     plt.title('Lithophane cross-seciton')
 
-    # plt.show()
+    plt.show()
 
     return x, y, z
 
@@ -71,6 +71,7 @@ def make_flat_model(x, y, z, added_name=''):
     filename[-2] = 'Output'
     filename = '/'.join(filename)
     model.save(filename)
+    print(filename)
 
     # Display stl. note z axis is not same scale as x and y axes.
     # li.showstl(x, y, z)
@@ -85,7 +86,7 @@ def make_cylinder_model(x, y, z):
     filename = imagefile[:-5].split('/')
     filename[-1] += '_Cylinder.stl'
     filename[-2] = 'Output'
-    filename = '/'.join(filename)
+    filename = './'+'/'.join(filename)
     model.save(filename)
 
 
@@ -127,22 +128,22 @@ def make_model_cmy(image_path):
 
 def make_model_grayscale(image_path):
     # Read the image.
-    image = read_image(imagefile)
+    image = read_image(image_path)
 
     # Convert to Gray Scale.
     gray = image2grayscale(image)
 
     # Get x, y, z.
-    x, y, z = calcXYZ(gray, h=2, d=0.1)
+    x, y, z = calcXYZ(gray, h=2, d=0.2)
 
     # Build the flat model.
     make_flat_model(x, y, z)
 
     # Build the cylinder model.
-    make_cylinder_model(x, y, z)
+    # make_cylinder_model(x, y, z)
 
 
 if __name__ == '__main__':
-    imagefile = './src_images/CMY_colors.jpeg'
-    make_model_cmy(imagefile)
-    # make_model_grayscale(imagefile)
+    imagefile = './src_images/karina.jpg'
+    # make_model_cmy(imagefile)
+    make_model_grayscale(imagefile)

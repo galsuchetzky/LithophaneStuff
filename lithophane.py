@@ -197,7 +197,7 @@ def showstl(x, y, z):
     import numpy as np
 
     fig = plt.figure()
-    ax = fig.gca(projection='3d')
+    ax = fig.add_subplot(projection='3d')
 
     # Plot the surface.
     surf = ax.plot_surface(x, y, z, cmap=cm.coolwarm,
